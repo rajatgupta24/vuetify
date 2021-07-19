@@ -1,26 +1,64 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Header msg="Todo APP"></Header>
+  <Form @add-task="addTask"></Form>
+  <List @delete-task="deleteTask" :tasks="tasks"></List>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from "./components/Header.vue"
+import Form from "./components/Form.vue"
+import List from "./components/List.vue"
 
 export default {
   name: 'App',
+  data() {
+    return {
+      tasks: []
+    }
+  },
   components: {
-    HelloWorld
+    Header,
+    Form,
+    List,
+  },
+  methods: {
+    addTask(task) {
+      this.tasks = [...this.tasks, task];
+    },
+    deleteTask(id) {
+      console.log(id)
+      this.tasks = this.tasks.filter((task) => task.id !== id)
+    }
+  },
+  created() {
+    this.tasks = [
+      {
+        id: 1,
+        task: "Task 1",
+        des: "This is task 1",
+        category: "work",
+        completed: false
+
+      },
+      {
+        id: 2,
+        task: "Task 2",
+        des: "This is task 2.",
+        category: "home",
+        completed: false
+
+      },
+      {
+        id: 3,
+        task: "Task 3",
+        des: "This is task 3",
+        category: "work",
+        completed: false
+
+      },
+    ]
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
